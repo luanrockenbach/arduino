@@ -52,20 +52,23 @@ void stopMotor()
 
 void dickVigarista()
 {
-  analogWrite(right_wheelGo, middle_speed);
-  analogWrite(left_wheelGo, middle_speed);
+  analogWrite(right_wheelGo, min_speed);
+  analogWrite(right_wheelBack, 0);
+  
+  analogWrite(left_wheelGo, min_speed);
+  analogWrite(left_wheelBack, 0);
 }
 
 void rightCurve()
 {
-  analogWrite(right_wheelGo, min_speed);
-  analogWrite(left_wheelGo, middle_speed);
+  analogWrite(right_wheelGo, 0);
+  analogWrite(left_wheelGo, min_speed);
 }
 
 void leftCurve()
 {
-  analogWrite(right_wheelGo, middle_speed);
-  analogWrite(left_wheelGo, min_speed);
+  analogWrite(right_wheelGo, min_speed);
+  analogWrite(left_wheelGo, 0);
 }
 
 
@@ -86,7 +89,7 @@ void setup()
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.println("Right Sensor:");
+  /*Serial.println("Right Sensor:");
   rightSensorFunction();
   delay(100);
 
@@ -96,8 +99,23 @@ void loop() {
 
   Serial.println("Left Sensor:");
   leftSensorFunction();
-  delay(100);
+  delay(100);*/
 
-  dickVigarista();
+  if(rightSensorFunction() >24 && leftSensorFunction() >24)
+  {
+    dickVigarista();
+  }
+  else if(rightSensorFunction() <=24 && leftSensorFunction() >24)
+  {
+    rightCurve();
+  }
+  else if(rightSensorFunction() >24 && leftSensorFunction() <=24)
+  {
+    leftCurve();
+  }
+  else
+  {
+    stopMotor();
+  }
   
 }
