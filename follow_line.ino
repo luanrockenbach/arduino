@@ -55,7 +55,7 @@ void dickVigarista(const int right, const int left)
   analogWrite(right_wheelGo, right);
   analogWrite(right_wheelBack, 0);
   
-  analogWrite(left_wheelGo, left);
+  analogWrite(left_wheelGo, left + 0.86);
   analogWrite(left_wheelBack, 0);
 }
 
@@ -93,18 +93,16 @@ void loop() {
   
   while(rightSensorFunction() <=50 && leftSensorFunction() >50)
   {
-   dickVigarista(min_speed, max_speed);
+   dickVigarista(min_speed, middle_speed);
   }
 
   while(rightSensorFunction() >50 && leftSensorFunction() <=50)
   {
-   dickVigarista(max_speed, min_speed);
+   dickVigarista(middle_speed, min_speed);
   }
 
   if(rightSensorFunction() <=50 && leftSensorFunction() <=50)
   {
     stopMotor();
   }
-   
-  
 }
