@@ -26,21 +26,21 @@ void serialPrint(char sensor, int value)
 int rightSensorFunction()
 {
   int value = analogRead(rightSensor);
-  //serialPrint('R', value);
+  serialPrint('R', value);
   return(value);  
 }
 
 int leftSensorFunction()
 {
   int value = analogRead(leftSensor);
-  //serialPrint('L', value);
+  serialPrint('L', value);
   return(value);  
 }
 
 int middleSensorFunction()
 {
   int value = analogRead(middleSensor);
-  //serialPrint('M', value);
+  serialPrint('M', value);
   return(value);  
 }
 
@@ -93,12 +93,12 @@ void loop() {
    dickVigarista(middle_speed, middle_speed);
   }
   
-  while(rightSensorFunction() <=sensorControll && leftSensorFunction() >sensorControll)
+  while(rightSensorFunction() > sensorControll && leftSensorFunction() <= sensorControll)
   {
    dickVigarista(middle_speed, min_speed);
   }
 
-  while(rightSensorFunction() >sensorControll && leftSensorFunction() <=sensorControll)
+  while(rightSensorFunction() <= sensorControll && leftSensorFunction() > sensorControll)
   {
    dickVigarista(min_speed, middle_speed);
   }
