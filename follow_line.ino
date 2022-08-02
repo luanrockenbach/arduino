@@ -13,6 +13,8 @@ int max_speed = 255;
 int middle_speed = 150;
 int min_speed = 50;
 
+int sensorControll = 28;
+
 
 void serialPrint(char sensor, int value)
 {
@@ -24,21 +26,21 @@ void serialPrint(char sensor, int value)
 int rightSensorFunction()
 {
   int value = analogRead(rightSensor);
-  serialPrint('R', value);
+  //serialPrint('R', value);
   return(value);  
 }
 
 int leftSensorFunction()
 {
   int value = analogRead(leftSensor);
-  serialPrint('L', value);
+  //serialPrint('L', value);
   return(value);  
 }
 
 int middleSensorFunction()
 {
   int value = analogRead(middleSensor);
-  serialPrint('M', value);
+  //serialPrint('M', value);
   return(value);  
 }
 
@@ -86,22 +88,22 @@ void loop() {
   leftSensorFunction();
   delay(100);*/
 
-  while(rightSensorFunction() >50 && leftSensorFunction() >50)
+  while(rightSensorFunction() >sensorControll && leftSensorFunction() >sensorControll)
   {
    dickVigarista(middle_speed, middle_speed);
   }
   
-  while(rightSensorFunction() <=50 && leftSensorFunction() >50)
-  {
-   dickVigarista(min_speed, middle_speed);
-  }
-
-  while(rightSensorFunction() >50 && leftSensorFunction() <=50)
+  while(rightSensorFunction() <=sensorControll && leftSensorFunction() >sensorControll)
   {
    dickVigarista(middle_speed, min_speed);
   }
 
-  if(rightSensorFunction() <=50 && leftSensorFunction() <=50)
+  while(rightSensorFunction() >sensorControll && leftSensorFunction() <=sensorControll)
+  {
+   dickVigarista(min_speed, middle_speed);
+  }
+
+  if(rightSensorFunction() <=sensorControll && leftSensorFunction() <=sensorControll)
   {
     stopMotor();
   }
