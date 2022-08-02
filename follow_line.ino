@@ -50,27 +50,14 @@ void stopMotor()
   analogWrite(right_wheelBack, 0);
 }
 
-void dickVigarista()
+void dickVigarista(const int right, const int left)
 {
-  analogWrite(right_wheelGo, min_speed);
+  analogWrite(right_wheelGo, right);
   analogWrite(right_wheelBack, 0);
   
-  analogWrite(left_wheelGo, min_speed);
+  analogWrite(left_wheelGo, left);
   analogWrite(left_wheelBack, 0);
 }
-
-void rightCurve()
-{
-  analogWrite(right_wheelGo, 0);
-  analogWrite(left_wheelGo, min_speed);
-}
-
-void leftCurve()
-{
-  analogWrite(right_wheelGo, min_speed);
-  analogWrite(left_wheelGo, 0);
-}
-
 
 void setup() 
 {
@@ -92,30 +79,32 @@ void loop() {
   /*Serial.println("Right Sensor:");
   rightSensorFunction();
   delay(100);
-
   Serial.println("Middle Sensor:");
   middleSensorFunction();
   delay(100);
-
   Serial.println("Left Sensor:");
   leftSensorFunction();
   delay(100);*/
 
-  if(rightSensorFunction() >24 && leftSensorFunction() >24)
+  while(rightSensorFunction() >50 && leftSensorFunction() >50)
   {
-    dickVigarista();
+   dickVigarista(middle_speed, middle_speed);
   }
-  else if(rightSensorFunction() <=24 && leftSensorFunction() >24)
+  
+  while(rightSensorFunction() <=50 && leftSensorFunction() >50)
   {
-    rightCurve();
+   dickVigarista(min_speed, max_speed);
   }
-  else if(rightSensorFunction() >24 && leftSensorFunction() <=24)
+
+  while(rightSensorFunction() >50 && leftSensorFunction() <=50)
   {
-    leftCurve();
+   dickVigarista(max_speed, min_speed);
   }
-  else
+
+  if(rightSensorFunction() <=50 && leftSensorFunction() <=50)
   {
     stopMotor();
   }
+   
   
 }
