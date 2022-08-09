@@ -10,7 +10,7 @@ int led = 13;
 #define right_wheelBack 9
 
 int max_speed = 255;
-int middle_speed = 150;
+int middle_speed = 100;
 int min_speed = 50;
 
 int sensorControll = 28;
@@ -57,7 +57,7 @@ void dickVigarista(const int right, const int left)
   analogWrite(right_wheelGo, right);
   analogWrite(right_wheelBack, 0);
   
-  analogWrite(left_wheelGo, left + 0.86);
+  analogWrite(left_wheelGo, left + 0.84);
   analogWrite(left_wheelBack, 0);
 }
 
